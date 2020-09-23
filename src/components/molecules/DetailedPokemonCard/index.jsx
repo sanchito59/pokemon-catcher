@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, Box, Container, Paper, Typography } from "@material-ui/core";
+import PokemonAbilities from "../../atoms/PokemonAbilities";
+import PokemonTypes from "../../atoms/PokemonTypes";
 
 const OuterCard = styled(Paper)`
   margin-top: 40px;
@@ -12,8 +14,6 @@ const DetailedPokemonCard = (props) => {
   const { abilities, name, new_name, sprites, types } = pokemon[0];
   const { front_default } = sprites;
   const [statsVisible, setStatsVisible] = useState(false);
-
-  console.log(types);
 
   return (
     <Container>
@@ -36,42 +36,8 @@ const DetailedPokemonCard = (props) => {
           </Button>
           {statsVisible && (
             <>
-              <ul>
-                <Typography variant="body1">Abilities</Typography>
-                {abilities.map((abilityObj) => {
-                  return (
-                    <li key={abilityObj.ability.name}>
-                      {abilityObj.ability.name} |{" "}
-                      <a
-                        href={abilityObj.ability.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {" "}
-                        More Info
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-              <ul>
-                <Typography variant="body1">Types</Typography>
-                {types.map((typeObj) => {
-                  return (
-                    <li key={typeObj.type.name}>
-                      {typeObj.type.name} |{" "}
-                      <a
-                        href={typeObj.type.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {" "}
-                        More Info
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
+              <PokemonAbilities abilities={abilities} />
+              <PokemonTypes types={types} />
             </>
           )}
         </OuterCard>

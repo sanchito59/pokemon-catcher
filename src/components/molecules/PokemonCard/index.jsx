@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Box, Container, Button, Paper, Typography } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Button,
+  Grid,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import PokemonTypes from "../../atoms/PokemonTypes";
 import PokemonForm from "../PokemonForm";
 import GetAppIcon from "@material-ui/icons/GetApp";
 
@@ -18,6 +26,7 @@ const PokemonCard = (props) => {
     new_name,
     captureControls,
     sprites: { front_default },
+    types,
     caught,
   } = props;
 
@@ -37,17 +46,35 @@ const PokemonCard = (props) => {
           captureControls && setControlVisibility(!controlVisibility)
         }
       >
-        <StyledPaper elevation={4}>
-          <img src={front_default} alt={`Sprite of ${name}`} />
-          {caught && (
-            <Link to={`/pokemon/${id}`}>
-              <Typography variant="body1">{new_name}</Typography>
-            </Link>
-          )}
-        </StyledPaper>
+        <Grid container style={{ justifyContent: "center" }}>
+          <StyledPaper elevation={4}>
+            <Grid item xs={4}>
+              <img src={front_default} alt={`Sprite of ${name}`} />
+            </Grid>
+            {caught && (
+              <Grid item xs={8}>
+                <StyledPaper elevation={0}>
+                  <Box>
+                    <Box>
+                      <Link to={`/pokemon/${id}`}>
+                        <Typography variant="body1">{new_name}</Typography>
+                      </Link>
+                    </Box>
+                    <Box>
+                      <Typography variant="caption">Level 1</Typography>
+                    </Box>
+                    <Box>
+                      <PokemonTypes types={types} />
+                    </Box>
+                  </Box>
+                </StyledPaper>
+              </Grid>
+            )}
+          </StyledPaper>
+        </Grid>
       </Box>
       {controlVisibility && formVisibility === false && (
-        <Box>
+        <Box style={{ display: "flex", justifyContent: "center" }}>
           <Button
             variant="outlined"
             color="secondary"
@@ -61,7 +88,9 @@ const PokemonCard = (props) => {
           </Button>
         </Box>
       )}
-      {formVisibility && <PokemonForm {...props} />}
+      <Box style={{ display: "flex", justifyContent: "center" }}>
+        {formVisibility && <PokemonForm {...props} />}
+      </Box>
     </Container>
   );
 };
