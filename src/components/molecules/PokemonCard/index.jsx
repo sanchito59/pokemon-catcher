@@ -1,22 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import PropTypes from "prop-types";
+import { Box, Container, IconButton, Paper } from "@material-ui/core";
+import PokemonForm from "../PokemonForm";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
-const PokemonCard = ({
-  captureControls,
-  id,
-  abilities,
-  name,
-  sprites: { front_default },
-  types,
-}) => {
+const StyledPaper = styled(Paper)`
+  padding: 20px;
+  display: flex;
+`;
+
+const PokemonCard = (props) => {
+  const {
+    captureControls,
+    id,
+    abilities,
+    name,
+    sprites: { front_default },
+    types,
+  } = props;
+
+  const [controlVisibility, setControlVisibility] = useState(captureControls);
+  const [formVisibility, setFormVisibility] = useState(false);
+
   return (
-    <div>
-      <img src={front_default} alt={`Sprite of ${name}`} />
-      <h3>
-        {name} - {id}
-      </h3>
-      {captureControls && <h1>CAPTURE</h1>}
-    </div>
+    <Container>
+      <Box onClick={() => setControlVisibility(!controlVisibility)}>
+        <StyledPaper elevation={4}>
+          <img src={front_default} alt={`Sprite of ${name}`} />
+        </StyledPaper>
+      </Box>
+      {controlVisibility && (
+        <Box>
+          <IconButton
+            aria-label="capture"
+            style={{ width: "96px", height: "96px" }}
+            onClick={() => {
+              setFormVisibility(true);
+            }}
+          >
+            <GetAppIcon fontSize="large" />
+          </IconButton>
+        </Box>
+      )}
+      {formVisibility && <PokemonForm {...props} />}
+    </Container>
   );
 };
 

@@ -1,45 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PokemonCard from "../../molecules/PokemonCard";
-import {
-  getWildPokemon,
-  getPokemonDetails,
-} from "../../../services/pokemonAPI";
+import { Grid, Container, Typography } from "@material-ui/core";
+import { usePokemonContext } from "../../../context/PokemonContext";
 
 const WildEncounter = () => {
-  const [wildPokemon, setWildPokemon] = useState(null);
-  const baseURL = "https://pokeapi.co/api/v2/pokemon/";
-
-  useEffect(() => {
-    async function fetchPokemon() {
-      const response = await getWildPokemon(baseURL);
-      await loadPokemonData(response.results);
-    }
-    fetchPokemon();
-  }, []);
-
-  const loadPokemonData = async (data) => {
-    const allPokemon = await Promise.all(
-      data.map(async (pokemon) => {
-        const singlePokemon = await getPokemonDetails(pokemon);
-        return singlePokemon;
-      })
-    );
-    setWildPokemon(allPokemon);
-  };
+  const { wildPokemon } = usePokemonContext();
 
   return (
-    <div>
-      <h1>Wild Encounter - Route 102</h1>
+    <Container>
+      <Typography component="h1" variant="h3">
+        Wild Encounter - Route 102
+      </Typography>
       {wildPokemon && (
-        <div>
+        <Grid container spacing={4}>
           {wildPokemon.map((pokemon) => {
             return (
-              <PokemonCard key={pokemon.id} {...pokemon} captureControls />
+              <Grid item lg={6}>
+                <PokemonCard key={pokemon.id} {...pokemon} />
+              </Grid>
             );
           })}
-        </div>
+        </Grid>
       )}
-    </div>
+    </Container>
   );
 };
 
