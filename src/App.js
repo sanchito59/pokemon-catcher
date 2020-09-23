@@ -1,5 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import Navbar from './components/molecules/Navbar';
 import LandingPage from './components/pages/LandingPage';
 import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
@@ -30,9 +31,7 @@ function App() {
     setWildPokemon(allPokemon);
 
     let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-    if (allCaughtPokemon === null) {
-      allCaughtPokemon = [];
-    }
+    if (allCaughtPokemon === null) allCaughtPokemon = [];
     setCaughtPokemon(allCaughtPokemon);
   };
 
@@ -40,8 +39,7 @@ function App() {
     <PokemonContext.Provider value={{ caughtPokemon, wildPokemon }}>
       <Router>
         <>
-          <Link to="/">Poké Center</Link>
-          <Link to="/wild-encounter">Route 102</Link>
+          <Navbar />
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/wild-encounter" component={WildEncounter} />
