@@ -15,7 +15,7 @@ const PokemonTypes = ({ types }) => {
               rel="noopener noreferrer"
             >
               {" "}
-              More Info
+              API Reference
             </a>
           </li>
         );

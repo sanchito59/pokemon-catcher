@@ -48,7 +48,7 @@ const Navbar = () => {
             </CustomLink>
           </Typography>
           <Button color="inherit">
-            <CustomLink to="/">Poké Center</CustomLink>
+            <CustomLink to="/">Pokédex</CustomLink>
           </Button>
           <Button color="inherit">
             <CustomLink to="/wild-encounter">Route 102</CustomLink>

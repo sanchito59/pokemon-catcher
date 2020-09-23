@@ -15,7 +15,7 @@ const PokemonAbilities = ({ abilities }) => {
               rel="noopener noreferrer"
             >
               {" "}
-              More Info
+              API Reference
             </a>
           </li>
         );

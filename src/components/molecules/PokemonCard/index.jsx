@@ -21,7 +21,6 @@ const StyledPaper = styled(Paper)`
 
 const PokemonCard = (props) => {
   const {
-    id,
     name,
     new_name,
     captureControls,
@@ -56,7 +55,7 @@ const PokemonCard = (props) => {
                 <StyledPaper elevation={0}>
                   <Box>
                     <Box>
-                      <Link to={`/pokemon/${id}`}>
+                      <Link to={`/pokemon/${new_name}`}>
                         <Typography variant="body1">{new_name}</Typography>
                       </Link>
                     </Box>

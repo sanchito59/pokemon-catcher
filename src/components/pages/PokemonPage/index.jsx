@@ -8,10 +8,11 @@ const PokemonPage = ({ match }) => {
   const [singlePokemon, setSinglePokemon] = useState(null);
 
   const getSinglePokemon = useCallback(
-    (id) => {
+    (newName) => {
       const pokemon = caughtPokemon.filter(
-        (pokemon) => pokemon.id === parseInt(id)
+        (pokemon) => pokemon.new_name === newName
       );
+
       setSinglePokemon(pokemon);
     },
     [caughtPokemon]
