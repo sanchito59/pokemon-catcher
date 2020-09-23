@@ -18,8 +18,6 @@ const PokemonPage = ({ match }) => {
     getSinglePokemon(match.params.id);
   }, [match.params.id]);
 
-  console.log(singlePokemon);
-
   return singlePokemon === null ? (
     <CircularProgress />
   ) : (

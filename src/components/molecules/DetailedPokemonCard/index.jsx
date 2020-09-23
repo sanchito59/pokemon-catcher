@@ -20,7 +20,6 @@ const DetailedPokemonCard = (props) => {
   const { front_default } = sprites;
   const [statsVisible, setStatsVisible] = useState(false);
 
-  console.log(abilities);
   return (
     <Container>
       <Box>
