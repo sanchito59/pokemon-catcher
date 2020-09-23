@@ -23,9 +23,7 @@ const PokemonCard = (props) => {
     name,
     new_name,
     captureControls,
-    abilities,
     sprites: { front_default },
-    types,
     caught,
   } = props;
 
