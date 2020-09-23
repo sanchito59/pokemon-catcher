@@ -8,7 +8,7 @@ import pokeball from "../../../assets/images/pokeball.png";
 
 const PokeballImg = styled.img`
   height: 55px;
-  width: 100%;
+  width: 55px;
   object-fit: cover;
 `;
 
