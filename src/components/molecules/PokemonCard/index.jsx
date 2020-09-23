@@ -21,12 +21,13 @@ const StyledPaper = styled(Paper)`
 
 const PokemonCard = (props) => {
   const {
+    uniqueID,
     name,
     new_name,
-    captureControls,
     sprites: { front_default },
     types,
     caught,
+    captureControls,
   } = props;
 
   const [controlVisibility, setControlVisibility] = useState(false);
@@ -55,7 +56,7 @@ const PokemonCard = (props) => {
                 <StyledPaper elevation={0}>
                   <Box>
                     <Box>
-                      <Link to={`/pokemon/${new_name}`}>
+                      <Link to={`/pokemon/${uniqueID}`}>
                         <Typography variant="body1">{new_name}</Typography>
                       </Link>
                     </Box>
