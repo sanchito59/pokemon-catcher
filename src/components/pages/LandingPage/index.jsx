@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PokemonCard from "../../molecules/PokemonCard";
-import { Grid, Container, Typography } from "@material-ui/core";
+import { Grid, Box, Container, Typography } from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
 
 const LandingPage = () => {
@@ -25,10 +25,14 @@ const LandingPage = () => {
           })}
         </Grid>
       ) : (
-        <Typography variant="h3" component="h3">
-          Nothing caught yet? Let's change that!
-          <Link to="/wild-encounter">Route 102 awaits</Link>
-        </Typography>
+        <Box>
+          <Typography variant="h3" component="h3">
+            Nothing caught yet?{" "}
+            <Link to="/wild-encounter" style={{ marginTop: "12px" }}>
+              Route 102 awaits!
+            </Link>
+          </Typography>
+        </Box>
       )}
     </Container>
   );

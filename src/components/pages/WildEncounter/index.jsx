@@ -8,7 +8,7 @@ const WildEncounter = () => {
 
   return (
     <Container>
-      <Typography component="h1" variant="h3">
+      <Typography component="h1" variant="h3" style={{ marginBottom: "40px" }}>
         Wild Encounter - Route 102
       </Typography>
       {wildPokemon && (

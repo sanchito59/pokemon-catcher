@@ -45,7 +45,14 @@ const DetailedPokemonCard = (props) => {
                 return (
                   <li key={abilityObject.ability.name}>
                     {abilityObject.ability.name} |{" "}
-                    <a href={abilityObject.ability.url}> More Info</a>
+                    <a
+                      href={abilityObject.ability.url}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      {" "}
+                      More Info
+                    </a>
                   </li>
                 );
               })}
