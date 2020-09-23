@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PokemonCard from "../../molecules/PokemonCard";
-import { Grid, Box, Container, Typography } from "@material-ui/core";
+import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
 
 const MainHeader = styled(Typography)`
@@ -10,40 +10,68 @@ const MainHeader = styled(Typography)`
   text-align: center;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
+const FlexWrapper = styled(Box)`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+`;
+
+const FlexGrid = styled(Grid)`
+  display: false;
+  justify-content: center;
+  margin-bottom: 40px;
+`;
+
 const LandingPage = () => {
   const { caughtPokemon } = usePokemonContext();
 
   return (
     <Container>
+      <MainHeader variant="h3" component="h1">
+        Your Pokedex
+      </MainHeader>
       {caughtPokemon !== null && caughtPokemon.length > 0 ? (
         <>
-          <MainHeader variant="h3" component="h1">
-            Your Pokedex
-          </MainHeader>
-          <Grid container spacing={4}>
+          <FlexWrapper>
+            <Button variant="contained" color="primary">
+              <StyledLink to="/wild-encounter">Catch More Pokemon!</StyledLink>
+            </Button>
+          </FlexWrapper>
+          <Grid
+            container
+            spacing={4}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             {caughtPokemon.map((pokemon) => {
               return (
-                <Grid item lg={6}>
-                  <PokemonCard
-                    key={pokemon.id}
-                    {...pokemon}
-                    caught
-                    captureControls={false}
-                  />
-                </Grid>
+                <FlexGrid item lg={6}>
+                  <StyledLink to={`/pokemon/${pokemon.uniqueID}`}>
+                    <PokemonCard
+                      key={pokemon.id}
+                      {...pokemon}
+                      caught
+                      captureControls={false}
+                    />
+                  </StyledLink>
+                </FlexGrid>
               );
             })}
           </Grid>
         </>
       ) : (
-        <Box>
+        <FlexWrapper>
           <Typography variant="h3" component="h1">
             Nothing caught yet?{" "}
-            <Link to="/wild-encounter" style={{ marginTop: "12px" }}>
-              Route 102 awaits!
-            </Link>
+            <Button variant="contained" color="primary">
+              <StyledLink to="/wild-encounter">Route 102 awaits!</StyledLink>
+            </Button>
           </Typography>
-        </Box>
+        </FlexWrapper>
       )}
     </Container>
   );

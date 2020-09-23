@@ -14,6 +14,14 @@ import PokemonTypes from "../../atoms/PokemonTypes";
 import PokemonForm from "../PokemonForm";
 import GetAppIcon from "@material-ui/icons/GetApp";
 
+const StyledContainer = styled(Container)`
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+`;
+
 const StyledPaper = styled(Paper)`
   padding: 20px;
   display: flex;
@@ -40,7 +48,7 @@ const PokemonCard = (props) => {
   }, [controlVisibility]);
 
   return (
-    <Container>
+    <StyledContainer>
       <Box
         onClick={() =>
           captureControls && setControlVisibility(!controlVisibility)
@@ -91,7 +99,7 @@ const PokemonCard = (props) => {
       <Box style={{ display: "flex", justifyContent: "center" }}>
         {formVisibility && <PokemonForm {...props} />}
       </Box>
-    </Container>
+    </StyledContainer>
   );
 };
 

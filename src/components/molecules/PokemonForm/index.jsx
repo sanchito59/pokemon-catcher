@@ -18,10 +18,16 @@ const FormContainer = styled(Container)`
   border: 1px solid black;
 `;
 
+const FlexCaption = styled(Typography)`
+  display: flex;
+`;
+
 const PokemonForm = (props) => {
   const { caughtPokemon } = usePokemonContext();
   const [newName, setNewName] = useState("");
   const history = useHistory();
+
+  const { name, types } = props;
 
   const addPokemon = (pokemon, newName) => {
     const newPokemon = Object.assign(
@@ -38,6 +44,12 @@ const PokemonForm = (props) => {
         <Typography variant="h4" component="h1" paragraph>
           Name your Pokemon!
         </Typography>
+        <Typography variant="body2">Types: </Typography>
+        <FlexCaption variant="caption">
+          {types.map((typeObj) => {
+            return <p>| {typeObj.type.name} |</p>;
+          })}
+        </FlexCaption>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -48,8 +60,9 @@ const PokemonForm = (props) => {
         >
           <FormControl style={{ marginBottom: "32px" }}>
             <TextField
-              placeholder={props.name}
+              placeholder={name}
               value={newName}
+              label="New Name"
               onChange={(e) => setNewName(e.target.value)}
               required
             />
