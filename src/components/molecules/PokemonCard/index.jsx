@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Box, Container, IconButton, Paper } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  IconButton,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import PokemonForm from "../PokemonForm";
 import GetAppIcon from "@material-ui/icons/GetApp";
 
@@ -12,22 +19,33 @@ const StyledPaper = styled(Paper)`
 
 const PokemonCard = (props) => {
   const {
-    captureControls,
     id,
-    abilities,
     name,
+    new_name,
+    captureControls,
+    abilities,
     sprites: { front_default },
     types,
+    caught,
   } = props;
 
-  const [controlVisibility, setControlVisibility] = useState(captureControls);
+  const [controlVisibility, setControlVisibility] = useState(false);
   const [formVisibility, setFormVisibility] = useState(false);
 
   return (
     <Container>
-      <Box onClick={() => setControlVisibility(!controlVisibility)}>
+      <Box
+        onClick={() =>
+          captureControls && setControlVisibility(!controlVisibility)
+        }
+      >
         <StyledPaper elevation={4}>
           <img src={front_default} alt={`Sprite of ${name}`} />
+          {caught && (
+            <Link to={`/pokemon/${id}`}>
+              <Typography variant="body1">{new_name}</Typography>
+            </Link>
+          )}
         </StyledPaper>
       </Box>
       {controlVisibility && (
@@ -50,10 +68,12 @@ const PokemonCard = (props) => {
 
 PokemonCard.propTypes = {
   captureControls: PropTypes.bool,
+  caught: PropTypes.bool,
 };
 
 PokemonCard.defaultProps = {
   captureControls: false,
+  caught: false,
 };
 
 export default PokemonCard;

@@ -8,10 +8,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
+import { useHistory } from "react-router-dom";
 
 const PokemonForm = (props) => {
   const { caughtPokemon } = usePokemonContext();
   const [newName, setNewName] = useState("");
+  const history = useHistory();
 
   const addPokemon = (pokemon, newName) => {
     const newPokemon = Object.assign({ new_name: newName }, pokemon);
@@ -30,6 +32,7 @@ const PokemonForm = (props) => {
             e.preventDefault();
             addPokemon(props, newName);
             setNewName("");
+            history.push("/");
           }}
         >
           <FormControl style={{ marginBottom: "32px" }}>
