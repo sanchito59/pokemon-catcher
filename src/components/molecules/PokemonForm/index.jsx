@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import {
   Button,
   Box,
@@ -9,6 +10,12 @@ import {
 } from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
 import { useHistory } from "react-router-dom";
+
+const FormContainer = styled(Container)`
+  margin-top: 20px;
+  border-radius: 4px;
+  border: 1px solid black;
+`;
 
 const PokemonForm = (props) => {
   const { caughtPokemon } = usePokemonContext();
@@ -22,7 +29,7 @@ const PokemonForm = (props) => {
   };
 
   return (
-    <Container>
+    <FormContainer>
       <Box my={4}>
         <Typography variant="h4" component="h1" paragraph>
           Name your Pokemon!
@@ -40,15 +47,16 @@ const PokemonForm = (props) => {
               placeholder={props.name}
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
+              required
             />
           </FormControl>
           <br />
           <Button variant="outlined" type="submit">
-            Save Pokemon
+            Add to Pokedex
           </Button>
         </form>
       </Box>
-    </Container>
+    </FormContainer>
   );
 };
 

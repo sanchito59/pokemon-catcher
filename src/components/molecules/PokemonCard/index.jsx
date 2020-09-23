@@ -1,14 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Container,
-  IconButton,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Box, Container, Button, Paper, Typography } from "@material-ui/core";
 import PokemonForm from "../PokemonForm";
 import GetAppIcon from "@material-ui/icons/GetApp";
 
@@ -30,6 +24,12 @@ const PokemonCard = (props) => {
   const [controlVisibility, setControlVisibility] = useState(false);
   const [formVisibility, setFormVisibility] = useState(false);
 
+  useEffect(() => {
+    if (controlVisibility === false) {
+      setFormVisibility(false);
+    }
+  }, [controlVisibility]);
+
   return (
     <Container>
       <Box
@@ -46,17 +46,19 @@ const PokemonCard = (props) => {
           )}
         </StyledPaper>
       </Box>
-      {controlVisibility && (
+      {controlVisibility && formVisibility === false && (
         <Box>
-          <IconButton
-            aria-label="capture"
-            style={{ width: "96px", height: "96px" }}
+          <Button
+            variant="outlined"
+            color="secondary"
+            startIcon={<GetAppIcon fontSize="large" />}
+            style={{ marginTop: "20px" }}
             onClick={() => {
               setFormVisibility(true);
             }}
           >
-            <GetAppIcon fontSize="large" />
-          </IconButton>
+            CATCH WILD {name}!
+          </Button>
         </Box>
       )}
       {formVisibility && <PokemonForm {...props} />}
