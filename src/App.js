@@ -27,10 +27,9 @@ function App() {
     );
     localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
     setWildPokemon(allPokemon);
+
     let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-    if (allCaughtPokemon !== null) {
-      allCaughtPokemon = allCaughtPokemon.split(",");
-    } else {
+    if (allCaughtPokemon === null) {
       allCaughtPokemon = [];
     }
     setCaughtPokemon(allCaughtPokemon);
