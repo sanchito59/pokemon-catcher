@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { v4 as uuidv4 } from "uuid";
 import { usePokemonContext } from "../../../context/PokemonContext";
 import { useHistory } from "react-router-dom";
 
@@ -23,7 +24,10 @@ const PokemonForm = (props) => {
   const history = useHistory();
 
   const addPokemon = (pokemon, newName) => {
-    const newPokemon = Object.assign({ new_name: newName }, pokemon);
+    const newPokemon = Object.assign(
+      { new_name: newName, uniqueID: uuidv4() },
+      pokemon
+    );
     caughtPokemon.push(newPokemon);
     localStorage.setItem("caughtPokemon", JSON.stringify(caughtPokemon));
   };
