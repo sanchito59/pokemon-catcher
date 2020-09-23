@@ -16,7 +16,7 @@ const WildEncounter = () => {
           {wildPokemon.map((pokemon) => {
             return (
               <Grid item lg={6}>
-                <PokemonCard key={pokemon.id} {...pokemon} />
+                <PokemonCard key={pokemon.id} {...pokemon} captureControls />
               </Grid>
             );
           })}
