@@ -5,49 +5,44 @@ import LandingPage from './components/pages/LandingPage';
 import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
 import { PokemonContext } from './context/PokemonContext';
-// getPokemonDetails 
-import { getWildPokemon } from "./services/pokemonAPI";
+import { getPokemonCount, getPokemonDetails } from "./services/pokemonAPI";
 
 function App() {
   const [caughtPokemon, setCaughtPokemon] = useState(null);
   const [wildPokemon, setWildPokemon] = useState(null);
   const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 
+  const randomNumberWithinRange = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
   useEffect(() => {
-    async function fetchPokemon() {
-      const response = await getWildPokemon(`${baseURL}?limit=10`);
+    async function getTotalPokemonNumber() {
+      const response = await getPokemonCount("https://pokeapi.co/api/v2/pokemon-species/?limit=0")
+      let resources = [];
+      for (let i = 0; i < 10; i++) {
+        resources.push(baseURL + randomNumberWithinRange(1, response.count))
+      }
 
-      const pokemonDetails = response.results.map(async pokemon => {
-        const fetchedPokemon = await fetch(pokemon.url);
-        return fetchedPokemon.json();
-      })
-
-      const allPokemon = await Promise.all(pokemonDetails);
-      localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
-      setWildPokemon(allPokemon);
-
-      let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-      if (allCaughtPokemon === null) allCaughtPokemon = [];
-      setCaughtPokemon(allCaughtPokemon);
-      // await loadPokemonData(response.results);
+      await loadPokemonData(resources);
     }
-    fetchPokemon();
+    getTotalPokemonNumber()
   }, []);
 
-  // const loadPokemonData = async (data) => {
-  //   const allPokemon = await Promise.all(
-  //     data.map(async (pokemon) => {
-  //       const singlePokemon = await getPokemonDetails(pokemon);
-  //       return singlePokemon;
-  //     })
-  //   );
-  //   localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
-  //   setWildPokemon(allPokemon);
+  const loadPokemonData = async (data) => {
+    const allPokemon = await Promise.all(
+      data.map(async (pokemon) => {
+        const singlePokemon = await getPokemonDetails(pokemon);
+        return singlePokemon;
+      })
+    );
+    localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
+    setWildPokemon(allPokemon);
 
-  //   let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-  //   if (allCaughtPokemon === null) allCaughtPokemon = [];
-  //   setCaughtPokemon(allCaughtPokemon);
-  // };
+    let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
+    if (allCaughtPokemon === null) allCaughtPokemon = [];
+    setCaughtPokemon(allCaughtPokemon);
+  };
 
   return (
     <PokemonContext.Provider value={{ caughtPokemon, wildPokemon }}>
