@@ -5,7 +5,8 @@ import LandingPage from './components/pages/LandingPage';
 import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
 import { PokemonContext } from './context/PokemonContext';
-import { getWildPokemon, getPokemonDetails } from "./services/pokemonAPI";
+// getPokemonDetails 
+import { getWildPokemon } from "./services/pokemonAPI";
 
 function App() {
   const [caughtPokemon, setCaughtPokemon] = useState(null);
@@ -15,25 +16,38 @@ function App() {
   useEffect(() => {
     async function fetchPokemon() {
       const response = await getWildPokemon(`${baseURL}?limit=10`);
-      await loadPokemonData(response.results);
+
+      const pokemonDetails = response.results.map(async pokemon => {
+        const fetchedPokemon = await fetch(pokemon.url);
+        return fetchedPokemon.json();
+      })
+
+      const allPokemon = await Promise.all(pokemonDetails);
+      localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
+      setWildPokemon(allPokemon);
+
+      let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
+      if (allCaughtPokemon === null) allCaughtPokemon = [];
+      setCaughtPokemon(allCaughtPokemon);
+      // await loadPokemonData(response.results);
     }
     fetchPokemon();
   }, []);
 
-  const loadPokemonData = async (data) => {
-    const allPokemon = await Promise.all(
-      data.map(async (pokemon) => {
-        const singlePokemon = await getPokemonDetails(pokemon);
-        return singlePokemon;
-      })
-    );
-    localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
-    setWildPokemon(allPokemon);
+  // const loadPokemonData = async (data) => {
+  //   const allPokemon = await Promise.all(
+  //     data.map(async (pokemon) => {
+  //       const singlePokemon = await getPokemonDetails(pokemon);
+  //       return singlePokemon;
+  //     })
+  //   );
+  //   localStorage.setItem("wildPokemon", JSON.stringify(allPokemon));
+  //   setWildPokemon(allPokemon);
 
-    let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-    if (allCaughtPokemon === null) allCaughtPokemon = [];
-    setCaughtPokemon(allCaughtPokemon);
-  };
+  //   let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
+  //   if (allCaughtPokemon === null) allCaughtPokemon = [];
+  //   setCaughtPokemon(allCaughtPokemon);
+  // };
 
   return (
     <PokemonContext.Provider value={{ caughtPokemon, wildPokemon }}>
