@@ -28,7 +28,11 @@ const FlexGrid = styled(Grid)`
 `;
 
 const LandingPage = () => {
-  const { caughtPokemon } = usePokemonContext();
+  const {
+    caughtPokemon,
+    newEncounters,
+    setNewEncounters,
+  } = usePokemonContext();
 
   return (
     <Container>
@@ -38,7 +42,11 @@ const LandingPage = () => {
       {caughtPokemon !== null && caughtPokemon.length > 0 ? (
         <>
           <FlexWrapper>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setNewEncounters(!newEncounters)}
+            >
               <StyledLink to="/wild-encounter">Catch More Pokemon!</StyledLink>
             </Button>
           </FlexWrapper>
@@ -65,7 +73,11 @@ const LandingPage = () => {
         </>
       ) : (
         <FlexWrapper>
-          <Typography variant="h3" component="h1">
+          <Typography
+            variant="h3"
+            component="h1"
+            onClick={() => setNewEncounters(!newEncounters)}
+          >
             Nothing caught yet?{" "}
             <Button variant="contained" color="primary">
               <StyledLink to="/wild-encounter">Route 102 awaits!</StyledLink>

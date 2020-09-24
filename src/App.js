@@ -10,6 +10,8 @@ import { getPokemonCount, getPokemonDetails } from "./services/pokemonAPI";
 function App() {
   const [caughtPokemon, setCaughtPokemon] = useState(null);
   const [wildPokemon, setWildPokemon] = useState(null);
+  const [newEncounters, setNewEncounters] = useState(false);
+  const [loading, setLoading] = useState(true);
   const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 
   const randomNumberWithinRange = (min, max) => {
@@ -18,6 +20,7 @@ function App() {
 
   useEffect(() => {
     async function getTotalPokemonNumber() {
+      setLoading(true);
       const response = await getPokemonCount("https://pokeapi.co/api/v2/pokemon-species/?limit=0")
       let resources = [];
       for (let i = 0; i < 10; i++) {
@@ -27,7 +30,7 @@ function App() {
       await loadPokemonData(resources);
     }
     getTotalPokemonNumber()
-  }, []);
+  }, [newEncounters]);
 
   const loadPokemonData = async (data) => {
     const allPokemon = await Promise.all(
@@ -42,10 +45,11 @@ function App() {
     let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
     if (allCaughtPokemon === null) allCaughtPokemon = [];
     setCaughtPokemon(allCaughtPokemon);
+    setLoading(false);
   };
 
   return (
-    <PokemonContext.Provider value={{ caughtPokemon, wildPokemon }}>
+    <PokemonContext.Provider value={{ caughtPokemon, wildPokemon, newEncounters, setNewEncounters, loading, setLoading }}>
       <Router>
         <>
           <Navbar />
