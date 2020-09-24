@@ -5,20 +5,32 @@ import LandingPage from './components/pages/LandingPage';
 import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
 import { PokemonContext } from './context/PokemonContext';
-import { getWildPokemon, getPokemonDetails } from "./services/pokemonAPI";
+import { getPokemonCount, getPokemonDetails } from "./services/pokemonAPI";
 
 function App() {
   const [caughtPokemon, setCaughtPokemon] = useState(null);
   const [wildPokemon, setWildPokemon] = useState(null);
+  const [newEncounters, setNewEncounters] = useState(false);
+  const [loading, setLoading] = useState(true);
   const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 
+  const randomNumberWithinRange = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
   useEffect(() => {
-    async function fetchPokemon() {
-      const response = await getWildPokemon(`${baseURL}?limit=10`);
-      await loadPokemonData(response.results);
+    async function getTotalPokemonNumber() {
+      setLoading(true);
+      const response = await getPokemonCount("https://pokeapi.co/api/v2/pokemon-species/?limit=0")
+      let resources = [];
+      for (let i = 0; i < 10; i++) {
+        resources.push(baseURL + randomNumberWithinRange(1, response.count))
+      }
+
+      await loadPokemonData(resources);
     }
-    fetchPokemon();
-  }, []);
+    getTotalPokemonNumber()
+  }, [newEncounters]);
 
   const loadPokemonData = async (data) => {
     const allPokemon = await Promise.all(
@@ -33,10 +45,11 @@ function App() {
     let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
     if (allCaughtPokemon === null) allCaughtPokemon = [];
     setCaughtPokemon(allCaughtPokemon);
+    setLoading(false);
   };
 
   return (
-    <PokemonContext.Provider value={{ caughtPokemon, wildPokemon }}>
+    <PokemonContext.Provider value={{ caughtPokemon, wildPokemon, newEncounters, setNewEncounters, loading, setLoading }}>
       <Router>
         <>
           <Navbar />

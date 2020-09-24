@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, Box, Container, Paper, Typography } from "@material-ui/core";
 import PokemonAbilities from "../../atoms/PokemonAbilities";
+import SpriteImg from "../../atoms/SpriteImg";
 import PokemonTypes from "../../atoms/PokemonTypes";
 
 const OuterCard = styled(Paper)`
@@ -12,10 +13,6 @@ const OuterCard = styled(Paper)`
 const ImageContainer = styled(Container)`
   display: flex;
   margin-bottom: 20px;
-`;
-
-const CaptionBox = styled(Box)`
-  text-align: center;
 `;
 
 const DetailedPokemonCard = (props) => {
@@ -30,40 +27,26 @@ const DetailedPokemonCard = (props) => {
         <OuterCard elevation={4}>
           <Typography variant="caption">No. {id}</Typography>
           <ImageContainer>
-            <Box>
-              <Box>
-                <img
-                  src={front_default}
-                  alt={`Sprite of front view of ${new_name}, originally (${name})`}
-                />
-              </Box>
-              <CaptionBox>
-                <Typography variant="caption">Front</Typography>
-              </CaptionBox>
-            </Box>
-            <Box>
-              <Box>
-                <img
-                  src={back_default}
-                  alt={`Sprite of back view of ${new_name}, originally (${name})`}
-                />
-              </Box>
-              <CaptionBox>
-                <Typography variant="caption">Back</Typography>
-              </CaptionBox>
-            </Box>
+            {front_default && (
+              <SpriteImg
+                img={front_default}
+                alt={`Sprite of front view of ${new_name}, originally (${name})`}
+                caption="Front"
+              />
+            )}
+            {back_default && (
+              <SpriteImg
+                img={back_default}
+                alt={`Sprite of the back of ${new_name}, originally (${name})`}
+                caption={"Back"}
+              />
+            )}
             {front_shiny && (
-              <Box>
-                <Box>
-                  <img
-                    src={front_shiny}
-                    alt={`Sprite of shiny ${new_name}, originally (${name})`}
-                  />
-                </Box>
-                <CaptionBox>
-                  <Typography variant="caption">Shiny variant</Typography>
-                </CaptionBox>
-              </Box>
+              <SpriteImg
+                img={front_shiny}
+                alt={`Sprite of shiny ${new_name}, originally (${name})`}
+                caption={"Shiny variant"}
+              />
             )}
           </ImageContainer>
           <Typography variant="body1">Name: {new_name}</Typography>

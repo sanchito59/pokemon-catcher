@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import PokemonCard from "../../molecules/PokemonCard";
-import { Grid, Container, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Container,
+  Typography,
+  CircularProgress,
+} from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
 
 const MainHeader = styled(Typography)`
@@ -10,9 +15,16 @@ const MainHeader = styled(Typography)`
 `;
 
 const WildEncounter = () => {
-  const { wildPokemon } = usePokemonContext();
+  const { wildPokemon, loading } = usePokemonContext();
 
-  return (
+  return loading ? (
+    <Container
+      maxWidth="sm"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
+      <CircularProgress size="5rem" />
+    </Container>
+  ) : (
     <Container>
       <MainHeader component="h1" variant="h3">
         Wild Encounter - Route 102

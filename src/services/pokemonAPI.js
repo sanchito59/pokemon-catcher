@@ -8,7 +8,17 @@ export async function getWildPokemon(url) {
   });
 };
 
-export function getPokemonDetails({ url }) {
+export async function getPokemonCount(url) {
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        resolve(data);
+      });
+  });
+};
+
+export function getPokemonDetails(url) {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(res => res.json())
