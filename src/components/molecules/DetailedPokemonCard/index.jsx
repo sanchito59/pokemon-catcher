@@ -8,10 +8,12 @@ import PokemonTypes from "../../atoms/PokemonTypes";
 import SpriteImg from "../../atoms/SpriteImg";
 import { usePokemonContext } from "../../../context/PokemonContext";
 import { useHistory } from "react-router-dom";
+import typeColorMap from "../../atoms/PokemonTypes/helpers/typeColorMap";
 
 const OuterCard = styled(Paper)`
-  margin-top: 40px;
+  margin: 40px 0px;
   padding: 20px;
+  border: ${({ color }) => `2.5px solid ${color}`};
 `;
 
 const ImageContainer = styled(Container)`
@@ -32,8 +34,8 @@ const DetailedPokemonCard = (props) => {
     captureDate,
     stats,
   } = pokemon[0];
-
   const { front_default, back_default, front_shiny } = sprites;
+
   const [statsVisible, setStatsVisible] = useState(false);
   const {
     caughtPokemon,
@@ -41,6 +43,7 @@ const DetailedPokemonCard = (props) => {
     setNewEncounters,
   } = usePokemonContext();
   const history = useHistory();
+  const firstType = types.slice(0, 1)[0]["type"]["name"];
 
   const releasePokemon = (id) => {
     localStorage.setItem(
@@ -53,7 +56,7 @@ const DetailedPokemonCard = (props) => {
   return (
     <Container maxWidth="sm">
       <Box>
-        <OuterCard elevation={4}>
+        <OuterCard elevation={4} color={typeColorMap[firstType]}>
           <Typography variant="caption">No. {id}</Typography>
           <ImageContainer>
             {front_default && (
