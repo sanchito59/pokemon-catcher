@@ -1,23 +1,31 @@
 import React from "react";
+import styled from "styled-components";
 import { Typography } from "@material-ui/core";
+import typeColorMap from "./helpers/typeColorMap";
+
+const Value = styled.li`
+  list-style: none;
+  background: ${({ color }) => color};
+  padding: 4px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  text-align: center;
+`;
 
 const PokemonTypes = ({ types }) => {
   return (
     <ul>
-      <Typography variant="body1">Types</Typography>
+      <Typography variant="body2" paragraph align="center">
+        Types:
+      </Typography>
       {types.map((typeObj) => {
         return (
-          <li key={typeObj.type.name}>
-            {typeObj.type.name} |{" "}
-            <a
-              href={typeObj.type.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {" "}
-              API Reference
-            </a>
-          </li>
+          <Value
+            key={typeObj.type.name}
+            color={typeColorMap[typeObj.type.name]}
+          >
+            {typeObj.type.name}
+          </Value>
         );
       })}
     </ul>
