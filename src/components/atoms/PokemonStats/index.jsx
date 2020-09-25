@@ -21,18 +21,18 @@ const PokemonStats = ({ stats }) => {
   };
 
   return (
-    <Stats elevation={0}>
+    <Stats elevation={1}>
       <TableContainer>
-        <Table aria-label="Work Experience Table">
+        <Table aria-label="Pokemon Stats">
           <TableHead>
             <TableRow>
-              <TableCell>HP</TableCell>
-              <TableCell>Attack</TableCell>
-              <TableCell>Defense</TableCell>
-              <TableCell>Sp. Attack</TableCell>
-              <TableCell>Sp. Defense</TableCell>
-              <TableCell>Speed</TableCell>
-              <TableCell>Total</TableCell>
+              <TableCell aria-label="Health Points">HP</TableCell>
+              <TableCell aria-label="Attack">Attack</TableCell>
+              <TableCell aria-label="Defense">Defense</TableCell>
+              <TableCell aria-label="Special Attack">Sp. Attack</TableCell>
+              <TableCell aria-label="Special Defense">Sp. Defense</TableCell>
+              <TableCell aria-label="Speed">Speed</TableCell>
+              <TableCell aria-label="Total">Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
