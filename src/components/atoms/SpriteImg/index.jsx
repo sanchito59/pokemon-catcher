@@ -7,11 +7,17 @@ export const CaptionBox = styled(Box)`
   text-align: center;
 `;
 
+const Sprite = styled.img`
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+`;
+
 const SpriteImg = ({ img, alt, caption }) => {
   return (
     <Box>
       <Box>
-        <img src={img} alt={alt} />
+        <Sprite src={img} alt={alt} />
       </Box>
       <CaptionBox>
         <Typography variant="caption">{caption}</Typography>

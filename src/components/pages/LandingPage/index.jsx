@@ -76,18 +76,23 @@ const LandingPage = () => {
           </Grid>
         </>
       ) : (
-        <FlexWrapper>
-          <Typography
-            variant="h3"
-            component="h1"
-            onClick={() => setNewEncounters(!newEncounters)}
-          >
-            Nothing caught yet?{" "}
-            <Button variant="contained" color="primary">
+        <>
+          <FlexWrapper>
+            <Typography variant="h3" component="h1">
+              Nothing caught yet?
+            </Typography>
+          </FlexWrapper>
+          <FlexWrapper>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => setNewEncounters(!newEncounters)}
+            >
               <StyledLink to="/wild-encounter">Route 102 awaits!</StyledLink>
             </Button>
-          </Typography>
-        </FlexWrapper>
+          </FlexWrapper>
+        </>
       )}
     </Container>
   );

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { Button, Box, Container, Paper, Typography } from "@material-ui/core";
+import PokemonStats from "../../atoms/PokemonStats";
 import PokemonAbilities from "../../atoms/PokemonAbilities";
-import SpriteImg from "../../atoms/SpriteImg";
 import PokemonTypes from "../../atoms/PokemonTypes";
+import SpriteImg from "../../atoms/SpriteImg";
 import { usePokemonContext } from "../../../context/PokemonContext";
 import { useHistory } from "react-router-dom";
 
@@ -29,7 +30,9 @@ const DetailedPokemonCard = (props) => {
     sprites,
     types,
     captureDate,
+    stats,
   } = pokemon[0];
+
   const { front_default, back_default, front_shiny } = sprites;
   const [statsVisible, setStatsVisible] = useState(false);
   const {
@@ -107,6 +110,7 @@ const DetailedPokemonCard = (props) => {
           </Button>
           {statsVisible && (
             <>
+              <PokemonStats stats={stats} />
               <PokemonAbilities abilities={abilities} />
               <PokemonTypes types={types} />
             </>
