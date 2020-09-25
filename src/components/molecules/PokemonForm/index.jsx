@@ -31,7 +31,7 @@ const PokemonForm = (props) => {
 
   const addPokemon = (pokemon, newName) => {
     const newPokemon = Object.assign(
-      { new_name: newName, uniqueID: uuidv4() },
+      { new_name: newName, uniqueID: uuidv4(), captureDate: Date.now() },
       pokemon
     );
     caughtPokemon.push(newPokemon);

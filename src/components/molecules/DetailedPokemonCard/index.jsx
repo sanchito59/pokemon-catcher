@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import moment from "moment";
 import { Button, Box, Container, Paper, Typography } from "@material-ui/core";
 import PokemonAbilities from "../../atoms/PokemonAbilities";
 import SpriteImg from "../../atoms/SpriteImg";
@@ -17,7 +18,15 @@ const ImageContainer = styled(Container)`
 
 const DetailedPokemonCard = (props) => {
   const { pokemon } = props;
-  const { id, abilities, name, new_name, sprites, types } = pokemon[0];
+  const {
+    id,
+    abilities,
+    name,
+    new_name,
+    sprites,
+    types,
+    captureDate,
+  } = pokemon[0];
   const { front_default, back_default, front_shiny } = sprites;
   const [statsVisible, setStatsVisible] = useState(false);
 
@@ -51,6 +60,12 @@ const DetailedPokemonCard = (props) => {
           </ImageContainer>
           <Typography variant="body1">Name: {new_name}</Typography>
           <Typography variant="body1">Orig. Name: ({name})</Typography>
+          {captureDate && (
+            <Typography variant="caption">
+              First Encountered:{" "}
+              {moment(captureDate).format("ddd MMM Do | hh:mma")}
+            </Typography>
+          )}
           <Button
             variant="outlined"
             color="primary"
