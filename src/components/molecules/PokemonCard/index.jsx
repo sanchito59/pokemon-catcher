@@ -18,6 +18,7 @@ const StyledContainer = styled(Container)`
   transition: transform 0.3s;
 
   &:hover {
+    cursor: pointer;
     transform: translateY(-3px);
   }
 `;
@@ -25,6 +26,12 @@ const StyledContainer = styled(Container)`
 const StyledPaper = styled(Paper)`
   padding: 20px;
   display: flex;
+`;
+
+const Sprite = styled.img`
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
 `;
 
 const PokemonCard = (props) => {
@@ -57,7 +64,11 @@ const PokemonCard = (props) => {
         <Grid container style={{ justifyContent: "center" }}>
           <StyledPaper elevation={4}>
             <Grid item xs={4}>
-              <img src={front_default} alt={`Sprite of ${name}`} />
+              {front_default ? (
+                <Sprite src={front_default} alt={`Sprite of ${name}`} />
+              ) : (
+                <Typography variant="body2">{name}</Typography>
+              )}
             </Grid>
             {caught && (
               <Grid item xs={8}>

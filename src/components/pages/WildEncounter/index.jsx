@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PokemonCard from "../../molecules/PokemonCard";
+import PageLoading from "../../atoms/PageLoading";
 import {
   Grid,
   Container,
@@ -18,12 +19,7 @@ const WildEncounter = () => {
   const { wildPokemon, loading } = usePokemonContext();
 
   return loading ? (
-    <Container
-      maxWidth="sm"
-      style={{ display: "flex", justifyContent: "center" }}
-    >
-      <CircularProgress size="5rem" />
-    </Container>
+    <PageLoading />
   ) : (
     <Container>
       <MainHeader component="h1" variant="h3">

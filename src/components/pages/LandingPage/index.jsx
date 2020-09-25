@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PokemonCard from "../../molecules/PokemonCard";
+import PageLoading from "../../atoms/PageLoading";
 import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
 
@@ -32,9 +33,12 @@ const LandingPage = () => {
     caughtPokemon,
     newEncounters,
     setNewEncounters,
+    loading,
   } = usePokemonContext();
 
-  return (
+  return loading ? (
+    <PageLoading />
+  ) : (
     <Container>
       <MainHeader variant="h3" component="h1">
         Your Pokedex

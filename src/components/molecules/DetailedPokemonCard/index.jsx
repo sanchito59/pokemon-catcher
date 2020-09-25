@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { Button, Box, Container, Paper, Typography } from "@material-ui/core";
 import PokemonAbilities from "../../atoms/PokemonAbilities";
 import SpriteImg from "../../atoms/SpriteImg";
 import PokemonTypes from "../../atoms/PokemonTypes";
+import { usePokemonContext } from "../../../context/PokemonContext";
+import { useHistory } from "react-router-dom";
 
 const OuterCard = styled(Paper)`
   margin-top: 40px;
@@ -20,6 +22,7 @@ const DetailedPokemonCard = (props) => {
   const { pokemon } = props;
   const {
     id,
+    uniqueID,
     abilities,
     name,
     new_name,
@@ -29,6 +32,20 @@ const DetailedPokemonCard = (props) => {
   } = pokemon[0];
   const { front_default, back_default, front_shiny } = sprites;
   const [statsVisible, setStatsVisible] = useState(false);
+  const {
+    caughtPokemon,
+    newEncounters,
+    setNewEncounters,
+  } = usePokemonContext();
+  const history = useHistory();
+
+  const releasePokemon = (id) => {
+    localStorage.setItem(
+      "caughtPokemon",
+      JSON.stringify(caughtPokemon.filter((pokemon) => pokemon.uniqueID !== id))
+    );
+    setNewEncounters(!newEncounters);
+  };
 
   return (
     <Container maxWidth="sm">
@@ -66,6 +83,7 @@ const DetailedPokemonCard = (props) => {
               {moment(captureDate).format("ddd MMM Do | hh:mma")}
             </Typography>
           )}
+          <br />
           <Button
             variant="outlined"
             color="primary"
@@ -74,6 +92,18 @@ const DetailedPokemonCard = (props) => {
             onClick={() => setStatsVisible(!statsVisible)}
           >
             {statsVisible ? "Hide" : "View"} Stats
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="small"
+            style={{ marginTop: "10px", marginLeft: "12px" }}
+            onClick={() => {
+              releasePokemon(uniqueID);
+              history.push("/");
+            }}
+          >
+            release {new_name}
           </Button>
           {statsVisible && (
             <>
