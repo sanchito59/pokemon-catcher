@@ -14,8 +14,13 @@ const Value = styled.li`
 
 const PokemonTypes = ({ types }) => {
   return (
-    <ul>
-      <Typography variant="body2" paragraph align="center">
+    <ul style={{ padding: "0px" }}>
+      <Typography
+        variant="body2"
+        paragraph
+        align="center"
+        style={{ margin: "16px 0px" }}
+      >
         Types:
       </Typography>
       {types.map((typeObj) => {

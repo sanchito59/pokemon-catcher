@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import { Button, Box, Container, Paper, Typography } from "@material-ui/core";
+import {
+  Button,
+  Box,
+  Container,
+  Divider,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import PokemonStats from "../../atoms/PokemonStats";
 import PokemonAbilities from "../../atoms/PokemonAbilities";
 import PokemonTypes from "../../atoms/PokemonTypes";
@@ -115,6 +122,7 @@ const DetailedPokemonCard = (props) => {
             <>
               <PokemonStats stats={stats} />
               <PokemonAbilities abilities={abilities} />
+              <Divider />
               <PokemonTypes types={types} />
             </>
           )}

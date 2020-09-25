@@ -2,12 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PokemonCard from "../../molecules/PokemonCard";
 import PageLoading from "../../atoms/PageLoading";
-import {
-  Grid,
-  Container,
-  Typography,
-  CircularProgress,
-} from "@material-ui/core";
+import { Grid, Container, Typography } from "@material-ui/core";
 import { usePokemonContext } from "../../../context/PokemonContext";
 
 const MainHeader = styled(Typography)`
