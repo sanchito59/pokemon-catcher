@@ -53,6 +53,9 @@ const Navbar = () => {
           <Button color="inherit">
             <CustomLink to="/wild-encounter">Route 102</CustomLink>
           </Button>
+          <Button color="inherit">
+            <CustomLink to="search">Search</CustomLink>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
