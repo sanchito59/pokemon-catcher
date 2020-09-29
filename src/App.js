@@ -22,10 +22,8 @@ function App() {
     const getPokemonData = async () => {
       setLoading(true);
       const response = await getPokemonCount("https://pokeapi.co/api/v2/pokemon-species/?limit=0")
-      let resources = [];
-      for (let i = 0; i < 10; i++) {
-        resources.push(baseURL + randomNumberWithinRange(1, response.count))
-      }
+
+      const resources = new Array(10).fill().map(() => `${baseURL}${randomNumberWithinRange(1, response.count)}`);
 
       await loadPokemonData(resources);
     }
