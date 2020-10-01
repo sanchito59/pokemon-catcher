@@ -1,7 +1,7 @@
 export const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 
-// 10 At a Time, with access to pagination- send pokemon URL through getPokemonDetails
-export async function getWildPokemon(url) {
+// 10 at a time, with access to pagination- send pokemon URL through getPokemonDetails
+export const getWildPokemon = async (url) => {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(res => res.json())
@@ -12,7 +12,7 @@ export async function getWildPokemon(url) {
 };
 
 // Returns the count of the current Pokemon in the API
-export async function getPokemonCount(url) {
+export const getPokemonCount = async (url) => {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(res => res.json())
@@ -23,7 +23,7 @@ export async function getPokemonCount(url) {
 };
 
 // Gets the details for a pokemon
-export function getPokemonDetails(url) {
+export const getPokemonDetails = (url) => {
   return new Promise((resolve, reject) => {
     fetch(url)
       .then(res => {

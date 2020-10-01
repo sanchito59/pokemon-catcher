@@ -20,7 +20,7 @@ const SearchPage = () => {
     setLoading(true);
 
     const singlePokemon = await getPokemonDetails(
-      baseURL + pokemon
+      `${baseURL}${pokemon}`
     ).catch((err) => setError(err));
     setLoading(false);
 
