@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { CircularProgress } from "@material-ui/core";
+import {
+  Breadcrumbs,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { usePokemonContext } from "../../../context/PokemonContext";
 import DetailedPokemonCard from "../../molecules/DetailedPokemonCard";
 
@@ -12,7 +18,7 @@ const PokemonPage = ({ match }) => {
       const pokemon = caughtPokemon.filter(
         (pokemon) => pokemon.uniqueID === uniqueID
       );
-      setSinglePokemon(pokemon);
+      setSinglePokemon(pokemon[0]);
     },
     [caughtPokemon]
   );
@@ -24,7 +30,18 @@ const PokemonPage = ({ match }) => {
   return singlePokemon === null ? (
     <CircularProgress />
   ) : (
-    <DetailedPokemonCard pokemon={singlePokemon} />
+    <Container maxWidth="sm">
+      <Breadcrumbs aria-label="breadcrumb" style={{ margin: "40px 0px" }}>
+        <Link color="inherit" to="/">
+          Pokédex
+        </Link>
+        <Link color="inherit" to="/wild-encounter">
+          Route 102
+        </Link>
+        <Typography color="textPrimary">{singlePokemon.new_name}</Typography>
+      </Breadcrumbs>
+      <DetailedPokemonCard pokemon={singlePokemon} />
+    </Container>
   );
 };
 

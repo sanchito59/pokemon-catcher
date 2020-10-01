@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import moment from "moment";
 import {
@@ -29,7 +30,7 @@ const ImageContainer = styled(Container)`
 `;
 
 const DetailedPokemonCard = (props) => {
-  const { pokemon } = props;
+  const { pokemon, captured } = props;
   const {
     id,
     uniqueID,
@@ -40,7 +41,7 @@ const DetailedPokemonCard = (props) => {
     types,
     captureDate,
     stats,
-  } = pokemon[0];
+  } = pokemon;
   const { front_default, back_default, front_shiny } = sprites;
 
   const [statsVisible, setStatsVisible] = useState(false);
@@ -88,8 +89,12 @@ const DetailedPokemonCard = (props) => {
               />
             )}
           </ImageContainer>
-          <Typography variant="body1">Name: {new_name}</Typography>
-          <Typography variant="body1">Orig. Name: ({name})</Typography>
+          {captured && (
+            <Typography variant="body1">Name: {new_name}</Typography>
+          )}
+          <Typography variant="body1">
+            {captured ? "Orig. Name: " : "Name: "}({name})
+          </Typography>
           {captureDate && (
             <Typography variant="caption">
               First Encountered:{" "}
@@ -106,18 +111,20 @@ const DetailedPokemonCard = (props) => {
           >
             {statsVisible ? "Hide" : "View"} Stats
           </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="small"
-            style={{ marginTop: "10px", marginLeft: "12px" }}
-            onClick={() => {
-              releasePokemon(uniqueID);
-              history.push("/");
-            }}
-          >
-            release {new_name}
-          </Button>
+          {captured && (
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              style={{ marginTop: "10px", marginLeft: "12px" }}
+              onClick={() => {
+                releasePokemon(uniqueID);
+                history.push("/");
+              }}
+            >
+              release {new_name}
+            </Button>
+          )}
           {statsVisible && (
             <>
               <PokemonStats stats={stats} />
@@ -130,6 +137,14 @@ const DetailedPokemonCard = (props) => {
       </Box>
     </Container>
   );
+};
+
+DetailedPokemonCard.propTypes = {
+  captured: PropTypes.bool,
+};
+
+DetailedPokemonCard.defaultProps = {
+  captured: true,
 };
 
 export default DetailedPokemonCard;
