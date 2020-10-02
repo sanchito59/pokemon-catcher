@@ -4,9 +4,9 @@
 
 ## [Live Demo](https://pokemon-catcher.netlify.app/)
 
-[Pokémon Catcher](https://pokemon-catcher.netlify.app/) is a webapp built with React, React Context, localStorage, and the Pokémon API. It features a Homepage with caught Pokémon, a Wild Area to encounter, catch, and name Pokémon, and detailed Pokedex pages for each Caught Pokémon.
+[Pokémon Catcher](https://pokemon-catcher.netlify.app/) is a webapp built with React, React Context, localStorage, and the Pokémon API. It features a Homepage with caught Pokémon, a Wild Area to encounter, catch, and name Pokémon, search functionality, and detailed Pokedex pages for each Caught Pokémon. As well, there is test coverage for helper functions and API calls using Jest.
 
-![image of Pokémon Catcher](https://i.imgur.com/TJ6445z.png "read")
+![image of Pokémon Catcher Pokédex page for caught Pokémon.](https://i.imgur.com/6L9wHXL.png "read")
 
 - - - 
 
@@ -39,8 +39,9 @@
 
 * React.js
 * Material UI
-* Pokémon API
 * localStorage
+* Jest
+* Pokémon API
 * Styled Components
 * Agile/Kanban
 * CSS3 / SASS / SCSS / HTML5
@@ -48,8 +49,6 @@
 ### [Frontend Dependencies](https://github.com/sanchito59/pokemon-catcher/blob/master/package.json)
 
  - - -
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -60,13 +59,9 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
 ### `yarn test` or `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode. <br />
 
 ### `yarn build` or `npm build`
 
