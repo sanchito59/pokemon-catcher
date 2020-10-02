@@ -29,7 +29,7 @@ export const getPokemonDetails = (url) => {
     fetch(url)
       .then(res => {
         if (!res.ok) {
-          return reject('Pokemon Not found');
+          return reject('Pokemon not found');
         } else {
           return res.json()
         }

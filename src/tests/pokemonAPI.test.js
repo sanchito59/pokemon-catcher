@@ -14,6 +14,18 @@ test('Get Pokemon count', async () => {
   const pokemonCount = await getPokemonCount(pokemonCountURL);
   expect(pokemonCount.count).toBeGreaterThanOrEqual(893);
   // Using this matcher because the API will likely grow as new Generations of Pokemon are released
-})
+});
 
+test('Catch error from non-existent search result', async () => {
+  try {
+    await getPokemonDetails(`${baseURL}Yugioh`);
+  } catch (err) {
+    expect(err).toEqual('Pokemon not found');
+  }
+});
+
+test('Search for Pokemon by name', async () => {
+  const pikachu = await getPokemonDetails(`${baseURL}pikachu`);
+  expect(pikachu.name).toBe('pikachu');
+});
 
