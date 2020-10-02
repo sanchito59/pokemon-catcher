@@ -7,7 +7,7 @@ import PokemonPage from './components/pages/PokemonPage';
 import SearchPage from './components/pages/SearchPage';
 import { randomNumberWithinRange } from './helpers/randomNumberWithinRange';
 import { PokemonContext } from './context/PokemonContext';
-import { baseURL, getPokemonCount, getPokemonDetails } from "./services/pokemonAPI";
+import { baseURL, pokemonCountURL, getPokemonCount, getPokemonDetails, } from "./services/pokemonAPI";
 
 function App() {
   const [caughtPokemon, setCaughtPokemon] = useState(null);
@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const getPokemonData = async () => {
       setLoading(true);
-      const response = await getPokemonCount("https://pokeapi.co/api/v2/pokemon-species/?limit=0")
+      const response = await getPokemonCount(pokemonCountURL)
 
       const resources = new Array(10).fill().map(() => `${baseURL}${randomNumberWithinRange(1, response.count)}`);
 
