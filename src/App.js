@@ -6,6 +6,7 @@ import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
 import SearchPage from './components/pages/SearchPage';
 import { randomNumberWithinRange } from './helpers/randomNumberWithinRange';
+import { getPokedex } from './helpers/getPokedex';
 import { PokemonContext } from './context/PokemonContext';
 import { baseURL, pokemonCountURL, getPokemonCount, getPokemonDetails, } from "./services/pokemonAPI";
 
@@ -36,9 +37,7 @@ function App() {
     );
     setWildPokemon(allPokemon);
 
-    let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-    if (allCaughtPokemon === null) allCaughtPokemon = [];
-    setCaughtPokemon(allCaughtPokemon);
+    setCaughtPokemon(getPokedex());
     setLoading(false);
   };
 
