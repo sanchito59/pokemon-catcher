@@ -5,6 +5,7 @@ import LandingPage from './components/pages/LandingPage';
 import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
 import SearchPage from './components/pages/SearchPage';
+import { randomNumberWithinRange } from './helpers/randomNumberWithinRange';
 import { PokemonContext } from './context/PokemonContext';
 import { baseURL, getPokemonCount, getPokemonDetails } from "./services/pokemonAPI";
 
@@ -13,10 +14,6 @@ function App() {
   const [wildPokemon, setWildPokemon] = useState(null);
   const [newEncounters, setNewEncounters] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const randomNumberWithinRange = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
 
   useEffect(() => {
     const getPokemonData = async () => {
