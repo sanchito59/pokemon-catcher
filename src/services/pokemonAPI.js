@@ -1,4 +1,5 @@
 export const baseURL = "https://pokeapi.co/api/v2/pokemon/";
+export const pokemonCountURL = "https://pokeapi.co/api/v2/pokemon-species/?limit=0";
 
 // 10 at a time, with access to pagination- send pokemon URL through getPokemonDetails
 export const getWildPokemon = async (url) => {
@@ -28,7 +29,7 @@ export const getPokemonDetails = (url) => {
     fetch(url)
       .then(res => {
         if (!res.ok) {
-          return reject('Pokemon Not found');
+          return reject('Pokemon not found');
         } else {
           return res.json()
         }

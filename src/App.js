@@ -5,8 +5,10 @@ import LandingPage from './components/pages/LandingPage';
 import WildEncounter from './components/pages/WildEncounter';
 import PokemonPage from './components/pages/PokemonPage';
 import SearchPage from './components/pages/SearchPage';
+import { randomNumberWithinRange } from './helpers/randomNumberWithinRange';
+import { getPokedex } from './helpers/getPokedex';
 import { PokemonContext } from './context/PokemonContext';
-import { baseURL, getPokemonCount, getPokemonDetails } from "./services/pokemonAPI";
+import { baseURL, pokemonCountURL, getPokemonCount, getPokemonDetails, } from "./services/pokemonAPI";
 
 function App() {
   const [caughtPokemon, setCaughtPokemon] = useState(null);
@@ -14,14 +16,10 @@ function App() {
   const [newEncounters, setNewEncounters] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const randomNumberWithinRange = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
   useEffect(() => {
     const getPokemonData = async () => {
       setLoading(true);
-      const response = await getPokemonCount("https://pokeapi.co/api/v2/pokemon-species/?limit=0")
+      const response = await getPokemonCount(pokemonCountURL)
 
       const resources = new Array(10).fill().map(() => `${baseURL}${randomNumberWithinRange(1, response.count)}`);
 
@@ -39,9 +37,7 @@ function App() {
     );
     setWildPokemon(allPokemon);
 
-    let allCaughtPokemon = JSON.parse(localStorage.getItem("caughtPokemon"));
-    if (allCaughtPokemon === null) allCaughtPokemon = [];
-    setCaughtPokemon(allCaughtPokemon);
+    setCaughtPokemon(getPokedex());
     setLoading(false);
   };
 
